@@ -1,0 +1,45 @@
+{% extends 'feed/wrapper.html' %}
+{% load filename %}
+{% block content %}
+    <div class="container">
+        <div class="row m-5 p-5">
+            <div class="col-2 col-lg-2 d-flex flex-direction-row">
+                {% if object.icon != None %}
+                    <img src="{{object.icon.url}}" class="img-fluid" style="max-height: 100px; min-width: 100px; border-radius: 50%;">
+                {% else %}
+                    <img src="../../../media/non_user_icons/icon.png" class="img-fluid" style="border-radius: 50%;">
+                {% endif %}
+                <h1 class="text-light m-3">{{object.username}}</h1>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col col-12 col-lg-8">
+                {% for post in posts %}
+                    <div class="post bg-dark rounded pb-3 mb-5">
+                        <div class="d-flex align-items-center border-bottom border-secondary mb-3 p-2">
+                            {% if post.user_profile.icon != None %}
+                            <img src="{{post.user_profile.icon.url}}" class="img-fluid" style="width: 30px; height: 30px; border-radius: 50%;">
+                            {% else %}
+                            <img src="../../../media/non_user_icons/icon.png" style="width: 30px; height: 30px; border-radius: 50%;">
+                            {% endif %}
+                            <a href="/{{post.user_profile.id}}/" style="text-decoration: none;"><h3 class="ms-2 text-light">{{ post.user_profile.username }}</h3></a>
+                        </div>
+                        <div class="mb-3 mx-3">
+                            <h1 class="text-light">{{post.title}}</h1>
+                        </div>
+                        <div class="d-flex flex-direction-row justify-content-between border border-secondary m-3 p-2">
+                            <h4 class="text-light">{{ post.uploaded_file|filename }}</h4>
+                            <a href="{{post.uploaded_file.url}}" class="btn btn-danger" download>Download</a>
+                        </div>
+                        <div class="m-3 p-2">
+                            <p class="text-light">{{post.desc}}</p>
+                        </div>
+                        <div class="mx-3 mb-1 p-2">
+                            <h6 class="text-light">Published: {{post.published_date}}</h6>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

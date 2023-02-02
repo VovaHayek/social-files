@@ -1,0 +1,30 @@
+{% extends 'feed/wrapper.html' %}
+{% load crispy_forms_tags %} 
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center py-5">
+        <div class="row py-5">
+            <h1>Register</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="my-3">
+                    <label for="username">USERNAME</label>
+                    <div><input type="text" name="username" class="form-control" placeholder="Username" maxlength="18"></div>
+                </div>                   
+                <div class="my-3">
+                    <label for="email">EMAIL</label>
+                    <div><input type="email" name="email" class="form-control" placeholder="email@example.com"></div>
+                </div>                   
+                <div class="my-3">
+                    <label for="password1">PASSWORD</label>
+                    <div><input type="password" name="password1" class="form-control" placeholder="Password" title="Your password should not be similar to your username"></div>
+                </div>                   
+                <div class="my-3">
+                    <label for="password2">PASSWORD CONFIRMATION</label>
+                    <div><input type="password" name="password2" class="form-control" placeholder="Password Confirmation"></div>
+                </div>                   
+                <button class="btn btn-primary" type="submit">Register</button>
+            </form>
+            <p class="text-center mt-3">If you already have an account, <a href="/login" class="btn btn-success">login</a> instead.</p>
+        </div>
+    </div>
+{% endblock %}

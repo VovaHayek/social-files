@@ -1,0 +1,50 @@
+<div class="container-fluid h-50 bg-dark">
+    <div class="row d-flex justify-content-between">
+        <div class="col col-lg-2 d-flex flex-direction-row justify-content-between my-lg-5 ms-lg-5 m-4">
+            <a href="/" class="link-light"><h3><i class="bi bi-house-fill"></i></h3></a>
+            <a class="link-light" id="show-btn" style="cursor: pointer;"><h3><i class="bi bi-camera"></i></h3></a>
+            <a href="/" class="link-light"><h3><i class="bi bi-people-fill"></i></h3></a>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="col col-lg-3 d-flex justify-content-evenly align-items-center my-2 me-1">
+                <div class="d-flex flex-column justify-content-evenly">
+                    <a href="/user/{{user.id}}" style="text-decoration: none;"><h1 class="text-light">{{user.username}}</h1></a>
+                    <a href="/logout/" class="btn btn-danger">Log Out</a>
+                </div>
+                {% if user.icon != None %}
+                <img src="{{user.icon.url}}" class="img-fluid" style="width: 100px; height: 100px; border-radius: 50%;">
+                {% else %}
+                <img src="../../../media/non_user_icons/icon.png" style="width: 100px; height: 100px; border-radius: 50%;">
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="col col-lg-2 d-flex justify-content-evenly align-items-center my-5 me-5">
+                <a href="/registration/" class="btn btn-primary" role="button">Sign Up</a>
+                <a href="/login/" class="btn btn-success" role="button">Sign In</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container-fluid d-flex justify-content-center align-items-center" id="post-container" style="width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.8); visibility: hidden;">
+    <div class="row mw-75 bg-dark p-5 rounded d-flex m-2">
+        <button type="button" class="btn btn-danger btn-close align-self-end" aria-label="Close" id="close-btn"></button>
+        <h1 class="text-light text-center">Add Post</h1>
+        <form class="col" method="POST" action="/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label text-light">Title</label>
+                <input type="text" class="form-control" name="title" id="post-title">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label text-light">Description</label>
+                <textarea class="form-control" name="description" rows="3" id="post-description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="postFile" class="form-label text-light">Choose File</label>
+                <input class="form-control" type="file" name="postFile" id="post-file">
+            </div>
+            <input type="submit" class="btn btn-danger" id="post-publishing">
+        </form>
+    </div>
+</div>
